@@ -57,11 +57,6 @@ source ./symlink.sh
 
 symlink $PWD/alacritty --to-config
 symlink $PWD/fontconfig --to-config
-symlink $PWD/gtk/gtk-3.0 --to-config
-symlink $PWD/gtk/gtk-4.0 --to-config
-symlink $PWD/gtk/xsettingsd --to-config
-symlink $PWD/gtk/.gtkrc-2.0 --to-home
-symlink $PWD/gtk/.Xresources --to-home
 symlink $PWD/hypr --to-config
 symlink $PWD/rofi --to-config
 symlink $PWD/starship/starship.toml --to-config
@@ -78,11 +73,16 @@ gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Ner
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings set org.gnome.desktop.interface cursor-size 24
 gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
+mkdir -p ~/.config/gtk-4.0/
 ln -sf /usr/share/themes/Colloid-Grey-Dark/gtk-4.0/{assets,gtk.css} ~/.config/gtk-4.0
 
 sed -i 's|\$dotfiles = ".*"|$dotfiles = "'"$PWD"'"|' ./hypr/hyprland.conf
 sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/hyprlock.conf
 sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/hyprpaper.conf
+sed -i 's|\~/Hypr|'"$PWD"'|' ./rofi/config.rasi
+sed -i 's|\~/Hypr|'"$PWD"'|' ./rofi/config-cliphist.rasi
+sed -i 's|\~/Hypr|'"$PWD"'|' ./rofi/config-power.rasi
+sed -i 's|\~/Hypr|'"$PWD"'|' ./rofi/config-screenshot.rasi
 sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./waybar/config
 sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./waybar/modules.jsonc
 sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./wlogout/wlogout.sh

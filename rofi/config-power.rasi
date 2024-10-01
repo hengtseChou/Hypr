@@ -28,10 +28,10 @@ configuration {
 }
 
 /* ---- Load pywal colors (custom wal template) ---- */
-@import "~/Dotfiles/rofi/colors"
+@import "~/Hypr/rofi/colors"
 
 /* ---- Load wallpaper ---- */
-* { current-image: url("/home/hank/Dotfiles/wallpapers/blurred_wallpaper.png", height); }
+* { current-image: url("~/Hypr/wallpapers/blurred_wallpaper.png", height); }
 
 /* ---- Border ---- */
 * { border-width: 3px; }
