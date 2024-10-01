@@ -19,6 +19,7 @@ apps=(
 	alacritty
 	fastfetch
 	fontconfig
+	greetd-tuigreet
 	hyprland
 	hypridle
 	hyprlock
@@ -53,8 +54,10 @@ echo ":: installing theme..."
 paru -S --needed "${theming[@]}"
 echo ":: installing fonts..."
 
-source ./symlink.sh
+sudo systemctl enable greetd.service
+sudo cp ./greetd/config.toml /etc/greetd/config.toml
 
+source ./symlink.sh
 symlink $PWD/alacritty --to-config
 symlink $PWD/fontconfig --to-config
 symlink $PWD/hypr --to-config
@@ -64,7 +67,7 @@ symlink $PWD/swaync --to-config
 symlink $PWD/waybar --to-config
 symlink $PWD/wlogout --to-config
 
-fc-cache -fv
+fc-cache -f
 
 gsettings set org.gnome.desktop.interface gtk-theme 'Colloid-Dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Colloid-Dark'
