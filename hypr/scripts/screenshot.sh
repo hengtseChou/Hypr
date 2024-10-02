@@ -14,7 +14,7 @@ option3="Pick Monitor"
 
 options="$option1\n$option2\n$option3"
 
-choice=$(echo -e "$options" | rofi -dmenu -replace -config $HOME/Dotfiles/rofi/config-screenshot.rasi -i -no-show-icons -l 3 -width 30 -p "Take Screenshot")
+choice=$(echo -e "$options" | rofi -dmenu -replace -config $HOME/Hypr/rofi/config-screenshot.rasi -i -no-show-icons -l 3 -width 30 -p "Take Screenshot")
 
 case $choice in
 $option1)

@@ -82,6 +82,9 @@ ln -sf /usr/share/themes/Colloid-Grey-Dark/gtk-4.0/{assets,gtk.css} ~/.config/gt
 sed -i 's|\$dotfiles = ".*"|$dotfiles = "'"$PWD"'"|' ./hypr/hyprland.conf
 sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/hyprlock.conf
 sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/hyprpaper.conf
+sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/scripts/power-profiles.sh
+sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/scripts/screenshot.sh
+sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/scripts/toggle-waybar.sh
 sed -i 's|\~/Hypr|'"$PWD"'|' ./rofi/config.rasi
 sed -i 's|\~/Hypr|'"$PWD"'|' ./rofi/config-cliphist.rasi
 sed -i 's|\~/Hypr|'"$PWD"'|' ./rofi/config-power.rasi
