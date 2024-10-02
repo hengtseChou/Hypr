@@ -13,6 +13,10 @@ utils=(
 	imagemagick
 	cliphist
 	polkit-gnome
+	power-profiles-daemon
+	zoxide
+	hypridle
+	xdg-desktop-portal-hyprland
 )
 
 apps=(
@@ -21,10 +25,8 @@ apps=(
 	fontconfig
 	greetd-tuigreet
 	hyprland
-	hypridle
 	hyprlock
 	hyprpaper
-	xdg-desktop-portal-hyprland
 	hyprshot
 	rofi-wayland
 	starship
@@ -46,10 +48,10 @@ fonts=(
 	ttf-jetbrains-mono-nerd
 )
 
-echo ":: installing utilies..."
-paru -S --needed "${utils[@]}"
 echo ":: installing apps..."
 paru -S --needed "${apps[@]}"
+echo ":: installing utilies..."
+paru -S --needed "${utils[@]}"
 echo ":: installing theme..."
 paru -S --needed "${theming[@]}"
 echo ":: installing fonts..."
