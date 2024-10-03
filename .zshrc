@@ -32,10 +32,11 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # -----------------------------------------------------
-# DOTFILES
+# DIRECTORIES
 # -----------------------------------------------------
 
-dotfiles="$HOME/Hypr"
+hypr="$HOME/Hypr"
+conf="$HOME/Conf"
 
 # -----------------------------------------------------
 # GIT
@@ -55,28 +56,39 @@ alias gcl="git clone"
 # ALIASES
 # -----------------------------------------------------
 
+function ff() {
+  if [[ $XDG_CURRENT_DESKTOP == 'Hyprland' ]]; then 
+    fastfetch --config $hypr/fastfetch/config1.jsonc
+  elif [[ $XDG_CURRENT_DESKTOP == 'GNOME' ]]; then 
+    fastfetch --config $hypr/fastfetch/config2.jsonc 
+  fi
+}
+
 alias e="exit"
-alias search="s -p google"
-alias wifi="nmtui connect"
-alias clock="peaclock"
-alias dots="code $dotfiles"
-alias ff="if [[ $XDG_CURRENT_DESKTOP == 'Hyprland' ]]; then fastfetch --config $dotfiles/fastfetch/config1.jsonc; elif [[ $XDG_CURRENT_DESKTOP == 'GNOME' ]]; then fastfetch --config $dotfiles/fastfetch/config2.jsonc; fi"
+alias n="nano"
+alias g="gnome-text-editor"
 alias ls="eza --icons --group-directories-first"
 alias ll="eza -l --icons --group-directories-first"
 alias lt="eza --tree --level=1 --icons --group-directories-first"
-alias mirrors="rate-mirrors --allow-root --protocol https arch | grep -v '^#' | sudo tee /etc/pacman.d/mirrorlist"
-alias zshrc="nano $HOME/.zshrc"
-alias reload="source $HOME/.zshrc"
-alias inst="paru -S"
-alias uninst="paru -Rns"
+alias na="nautilus"
 alias up="paru"
-alias edit="gnome-text-editor"
+alias conf="code $conf"
+alias inst="paru -S"
+alias hypr="code $hypr"
+alias list="pacman -Qe"
+alias wifi="nmtui connect"
+alias clock="peaclock"
+alias zshrc="nano $HOME/.zshrc"
+alias search="s -p google"
+alias reload="source $HOME/.zshrc"
+alias uninst="paru -Rns"
+alias mirrors="rate-mirrors --allow-root --protocol https arch | grep -v '^#' | sudo tee /etc/pacman.d/mirrorlist"
 
 # -----------------------------------------------------
 # PYWAL
 # -----------------------------------------------------
 
-cat $dotfiles/sequences
+cat $hypr/sequences
 
 # -----------------------------------------------------
 # STARSHIP
