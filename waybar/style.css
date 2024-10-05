@@ -69,15 +69,16 @@ tooltip label {
 }
 
 #custom-media,
-#clock,
 #custom-updates,
 #pulseaudio,
 #battery,
 #network,
+#custom-weather,
 #cpu,
 #memory,
 #power-profiles-daemon,
-#custom-hypridle {
+#custom-hypridle,
+#clock {
   margin: 0 10px 0 0;
   padding: 2px 2px;
 }
@@ -91,24 +92,20 @@ tooltip label {
   margin: 0 16px 0 0;
 }
 
-#clock {
-  margin: 0px 10px 0px 0px;
-}
-
 #battery.good {
-  color: rgba(34, 139, 34, 1);
+  color: #228b22;
 }
 
 #battery.warning {
-  color: rgba(255, 210, 4, 1);
+  color: #fad104;
 }
 
 #battery.critical {
-  color: rgba(238, 46, 36, 1);
+  color: #ee2e24;
 }
 
 #battery.charging {
-  color: rgba(255, 255, 255, 1);
+  color: #ffffff;
 }
 
 #custom-media {

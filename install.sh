@@ -17,6 +17,7 @@ utils=(
 	zoxide
 	hypridle
 	xdg-desktop-portal-hyprland
+	waybar-wttrbar
 )
 
 apps=(

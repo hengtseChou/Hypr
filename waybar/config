@@ -20,6 +20,7 @@
     "pulseaudio",
     "battery",
     "network",
+    "custom/weather",
     "cpu",
     "memory",
     "power-profiles-daemon",
