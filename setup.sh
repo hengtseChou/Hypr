@@ -56,6 +56,7 @@ paru -S --needed "${utils[@]}"
 echo ":: installing theme..."
 paru -S --needed "${theming[@]}"
 echo ":: installing fonts..."
+paru -S --needed "${fonts[@]}"
 
 sudo systemctl enable greetd.service
 sudo cp ./greetd/config.toml /etc/greetd/config.toml
