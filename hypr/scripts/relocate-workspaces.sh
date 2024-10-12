@@ -7,7 +7,7 @@ if [ $monitors -eq 1 ]; then
     exit 0
 fi
 
-workspaces=($(echo "$(hyprctl workspaces -j)" | jq -r '.[] | select(.monitor == "eDP-1") | .id'))
+workspaces=($(echo "$(hyprctl workspaces -j)" | jq -r '.[] | .id'))
 for workspace in "${workspaces[@]}"; do
     hyprctl dispatch moveworkspacetomonitor $workspace current > /dev/null
 done
