@@ -131,7 +131,7 @@ function pkgsearch() {
 # PYWAL
 # -----------------------------------------------------
 
-# cat $hypr/sequences
+cat $hypr/sequences
 
 # -----------------------------------------------------
 # STARSHIP
