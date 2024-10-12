@@ -1,7 +1,7 @@
 #!/bin/bash
 if ! command -v paru 2>&1 >/dev/null
 then
-    echo ":: error: paru is not installed. exiting."
+    echo ":: Error: paru is not installed. Exiting."
     exit 1
 fi
 
@@ -53,13 +53,13 @@ fonts=(
 	ttf-jetbrains-mono-nerd
 )
 
-echo ":: installing apps..."
+echo ":: Installing apps..."
 paru -S --needed "${apps[@]}"
-echo ":: installing utilies..."
+echo ":: Installing utilies..."
 paru -S --needed "${utils[@]}"
-echo ":: installing theme..."
+echo ":: Installing theme..."
 paru -S --needed "${theming[@]}"
-echo ":: installing fonts..."
+echo ":: Installing fonts..."
 paru -S --needed "${fonts[@]}"
 
 sudo systemctl enable greetd.service
