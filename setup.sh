@@ -18,6 +18,10 @@ utils=(
 	hypridle
 	xdg-desktop-portal-hyprland
 	waybar-wttrbar
+	fzf
+	fd
+	bat
+	tree
 )
 
 apps=(
