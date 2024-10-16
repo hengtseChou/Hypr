@@ -1,8 +1,7 @@
 #!/bin/bash
-if ! command -v paru 2>&1 >/dev/null
-then
-    echo ":: Error: paru is not installed. Exiting."
-    exit 1
+if ! command -v paru 2>&1 >/dev/null; then
+	echo ":: Error: paru is not installed. Exiting."
+	exit 1
 fi
 
 utils=(
@@ -40,11 +39,6 @@ apps=(
 	wlogout
 )
 
-theming=(
-	colloid-icon-theme-git
-	colloid-gtk-theme-git
-)
-
 fonts=(
 	ttf-ubuntu-font-family
 	ttf-ubuntu-mono-nerd
@@ -53,14 +47,30 @@ fonts=(
 	ttf-jetbrains-mono-nerd
 )
 
+theming=(
+	colloid-icon-theme-git
+	colloid-gtk-theme-git
+)
+
 echo ":: Installing apps..."
 paru -S --needed "${apps[@]}"
 echo ":: Installing utilies..."
 paru -S --needed "${utils[@]}"
-echo ":: Installing theme..."
-paru -S --needed "${theming[@]}"
 echo ":: Installing fonts..."
 paru -S --needed "${fonts[@]}"
+
+read -p ":: Skip theming? (y/N): " skip_theming
+skip_theming=${skip_theming:-N}
+if [[ "$skip_theming" =~ ^([nN][oO]?|[yY][eE][sS]?)$ ]]; then
+	echo ":: Installing theme..."
+	paru -S --needed "${theming[@]}"
+	gsettings set org.gnome.desktop.interface gtk-theme 'Colloid-Dark'
+	gsettings set org.gnome.desktop.interface icon-theme 'Colloid-Dark'
+	mkdir -p ~/.config/gtk-4.0/
+	ln -sf /usr/share/themes/Colloid-Grey-Dark/gtk-4.0/{assets,gtk.css} ~/.config/gtk-4.0
+else
+	echo ":: Skipping theme installation."
+fi
 
 sudo systemctl enable greetd.service
 sudo cp ./greetd/config.toml /etc/greetd/config.toml
@@ -74,18 +84,15 @@ symlink $PWD/starship/starship.toml --to-config
 symlink $PWD/swaync --to-config
 symlink $PWD/waybar --to-config
 symlink $PWD/wlogout --to-config
+symlink $PWD/.zshrc --to-home
 
 fc-cache -f
 
-gsettings set org.gnome.desktop.interface gtk-theme 'Colloid-Dark'
-gsettings set org.gnome.desktop.interface icon-theme 'Colloid-Dark'
 gsettings set org.gnome.desktop.interface font-name 'Ubuntu 12'
 gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font 12'
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings set org.gnome.desktop.interface cursor-size 24
 gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
-mkdir -p ~/.config/gtk-4.0/
-ln -sf /usr/share/themes/Colloid-Grey-Dark/gtk-4.0/{assets,gtk.css} ~/.config/gtk-4.0
 
 sed -i 's|\$dotfiles = ".*"|$dotfiles = "'"$PWD"'"|' ./hypr/hyprland.conf
 sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/hyprlock.conf
