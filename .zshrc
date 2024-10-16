@@ -108,18 +108,30 @@ alias inst="paru -S"
 alias uninst="paru -Rns"
 alias up="paru -Syu"
 alias mirrors="rate-mirrors --allow-root --protocol https arch | grep -v '^#' | sudo tee /etc/pacman.d/mirrorlist"
-alias pkglist="pacman -Qqe | fzf --preview 'pacman -Qi {}' --layout=reverse"
+function pkglist() {
+  local full=false
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+      -f) full=true; shift ;;
+      *) return 1 ;;
+    esac
+  done
+  if $full; then
+    pacman -Qq | fzf --preview 'paru -Si {}' --layout=reverse
+  else
+    pacman -Qqe | fzf --preview 'paru -Si {}' --layout=reverse
+  fi
+
+}
 
 function pkgsearch() {
   local aur=false
-
   while [[ $# -gt 0 ]]; do
     case $1 in
       -a) aur=true; shift ;;
       *) return 1 ;;
     esac
   done
-
   if $aur; then
     paru -Slqa | fzf --preview 'paru -Si {}' --layout=reverse --bind 'enter:execute(paru -S {})'
   else
