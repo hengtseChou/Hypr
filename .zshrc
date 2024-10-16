@@ -40,10 +40,10 @@ bindkey "^[[1;5D" backward-word
 export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="robbyrussell"
 plugins=(
-    sudo
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-    ohmyzsh-full-autoupdate
+  sudo
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  ohmyzsh-full-autoupdate
 )
 source $ZSH/oh-my-zsh.sh
 
