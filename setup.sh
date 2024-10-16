@@ -66,6 +66,11 @@ if [[ "$skip_theming" =~ ^([nN][oO]?|[yY][eE][sS]?)$ ]]; then
 	paru -S --needed "${theming[@]}"
 	gsettings set org.gnome.desktop.interface gtk-theme 'Colloid-Dark'
 	gsettings set org.gnome.desktop.interface icon-theme 'Colloid-Dark'
+	gsettings set org.gnome.desktop.interface font-name 'Ubuntu 12'
+	gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font 12'
+	gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+	gsettings set org.gnome.desktop.interface cursor-size 24
+	gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
 	mkdir -p ~/.config/gtk-4.0/
 	ln -sf /usr/share/themes/Colloid-Grey-Dark/gtk-4.0/{assets,gtk.css} ~/.config/gtk-4.0
 else
@@ -87,12 +92,6 @@ symlink $PWD/wlogout --to-config
 symlink $PWD/.zshrc --to-home
 
 fc-cache -f
-
-gsettings set org.gnome.desktop.interface font-name 'Ubuntu 12'
-gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font 12'
-gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-gsettings set org.gnome.desktop.interface cursor-size 24
-gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
 
 sed -i 's|\$dotfiles = ".*"|$dotfiles = "'"$PWD"'"|' ./hypr/hyprland.conf
 sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/hyprlock.conf
