@@ -21,7 +21,7 @@ export PATH="$HOME/.spicetify:$PATH"
 # ZSH
 # -----------------------------------------------------
 
-autoload -Uz compinit 
+autoload -Uz compinit
 if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
 	compinit;
 else
@@ -93,10 +93,10 @@ alias search="s -p google"
 alias reload="source $HOME/.zshrc"
 
 function ff() {
-  if [[ $XDG_CURRENT_DESKTOP == 'Hyprland' ]]; then 
+  if [[ $XDG_CURRENT_DESKTOP == 'Hyprland' ]]; then
     fastfetch --config $hypr/fastfetch/config1.jsonc
-  elif [[ $XDG_CURRENT_DESKTOP == 'GNOME' ]]; then 
-    fastfetch --config $hypr/fastfetch/config2.jsonc 
+  elif [[ $XDG_CURRENT_DESKTOP == 'GNOME' ]]; then
+    fastfetch --config $hypr/fastfetch/config2.jsonc
   fi
 }
 
@@ -109,14 +109,14 @@ alias uninst="paru -Rns"
 alias up="paru -Syu"
 alias mirrors="rate-mirrors --allow-root --protocol https arch | grep -v '^#' | sudo tee /etc/pacman.d/mirrorlist"
 function pkglist() {
-  local full=false
+  local all=false
   while [[ $# -gt 0 ]]; do
     case $1 in
-      -f) full=true; shift ;;
+      -a) all=true; shift ;;
       *) return 1 ;;
     esac
   done
-  if $full; then
+  if $all; then
     pacman -Qq | fzf --preview 'paru -Si {}' --layout=reverse
   else
     pacman -Qqe | fzf --preview 'paru -Si {}' --layout=reverse
@@ -137,6 +137,11 @@ function pkgsearch() {
   else
     pacman -Slq | fzf --preview 'pacman -Si {}' --layout=reverse --bind 'enter:execute(sudo pacman -S {})'
   fi
+}
+
+function cleanup() {
+  sudo pacman -Rns $(pacman -Qtdq)
+  paru -Scc
 }
 
 # -----------------------------------------------------
