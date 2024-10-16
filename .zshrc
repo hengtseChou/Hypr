@@ -166,8 +166,10 @@ eval "$(zoxide init zsh)"
 # PYENV
 # -----------------------------------------------------
 
-eval "$(pyenv init -)"
-export PY3_10="$HOME/.pyenv/versions/3.10.14/bin/python3.10"
+if command -v pyenv 2>&1 >/dev/null; then
+	eval "$(pyenv init -)"
+  export PY3_10="$HOME/.pyenv/versions/3.10.14/bin/python3.10"
+fi
 
 # -----------------------------------------------------
 # FZF
