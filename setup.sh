@@ -33,6 +33,7 @@ apps=(
 	hyprpaper
 	hyprshot
 	rofi-wayland
+	pwvucontrol
 	starship
 	swaync
 	waybar
