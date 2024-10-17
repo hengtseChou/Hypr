@@ -100,6 +100,20 @@ function ff() {
   fi
 }
 
+function log-out() {
+  if [[ $XDG_CURRENT_DESKTOP == "Hyprland" ]]; then
+    echo "Session found: Hyprland. Logging out..."
+    sleep 2
+    hyprctl dispatch exit
+  elif [[ $XDG_CURRENT_DESKTOP == "GNOME" ]]; then
+    echo "Session found: GNOME. Logging out..."
+    sleep 2
+    gnome-session-quit --no-prompt
+  else
+    echo "Unknown session: $XDG_CURRENT_DESKTOP."
+  fi
+}
+
 # -----------------------------------------------------
 # PACMAN
 # -----------------------------------------------------
