@@ -5,22 +5,22 @@ if ! command -v paru 2>&1 >/dev/null; then
 fi
 
 utils=(
-	eza
-	wob
+	bat
 	brightnessctl
-	pamixer
-	imagemagick
 	cliphist
+	eza
+	fd
+	fzf
+	hypridle
+	imagemagick
+	pamixer
 	polkit-gnome
 	power-profiles-daemon
-	zoxide
-	hypridle
+	tree
+	wob
 	xdg-desktop-portal-hyprland
 	waybar-wttrbar
-	fzf
-	fd
-	bat
-	tree
+	zoxide
 )
 
 apps=(
@@ -32,8 +32,8 @@ apps=(
 	hyprlock
 	hyprpaper
 	hyprshot
-	rofi-wayland
 	pwvucontrol
+	rofi-wayland
 	starship
 	swaync
 	waybar
@@ -41,16 +41,16 @@ apps=(
 )
 
 fonts=(
-	ttf-ubuntu-font-family
-	ttf-ubuntu-mono-nerd
 	noto-fonts-cjk
 	noto-fonts-emoji
 	ttf-jetbrains-mono-nerd
+	ttf-ubuntu-font-family
+	ttf-ubuntu-mono-nerd
 )
 
 theming=(
-	colloid-icon-theme-git
 	colloid-gtk-theme-git
+	colloid-icon-theme-git
 )
 
 echo ":: Installing apps..."
