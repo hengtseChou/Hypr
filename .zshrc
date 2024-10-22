@@ -23,9 +23,9 @@ export PATH="$HOME/.spicetify:$PATH"
 
 autoload -Uz compinit
 if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
-	compinit;
+  compinit;
 else
-	compinit -C;
+  compinit -C;
 fi;
 
 export VISUAL=nano
@@ -89,7 +89,6 @@ alias conf="code $conf"
 alias hypr="code $hypr"
 alias wifi="nmtui connect"
 alias zshrc="nano $HOME/.zshrc"
-alias search="s -p google"
 alias reload="source $HOME/.zshrc"
 
 function ff() {
@@ -131,9 +130,9 @@ function pkglist() {
     esac
   done
   if $all; then
-    pacman -Qq | fzf --preview 'paru -Si {}' --layout=reverse
+    pacman -Qq | fzf --preview 'paru -Qi {}' --layout=reverse
   else
-    pacman -Qqe | fzf --preview 'paru -Si {}' --layout=reverse
+    pacman -Qqe | fzf --preview 'paru -Qi {}' --layout=reverse
   fi
 
 }
@@ -181,7 +180,7 @@ eval "$(zoxide init zsh)"
 # -----------------------------------------------------
 
 if command -v pyenv 2>&1 >/dev/null; then
-	eval "$(pyenv init -)"
+  eval "$(pyenv init -)"
   export PY3_10="$HOME/.pyenv/versions/3.10.14/bin/python3.10"
 fi
 
