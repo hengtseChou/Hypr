@@ -10,6 +10,7 @@ utils=(
 	cliphist
 	eza
 	fd
+	figlet
 	fzf
 	hypridle
 	imagemagick
