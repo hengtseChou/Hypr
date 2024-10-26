@@ -18,6 +18,7 @@ utils=(
 	polkit-gnome
 	power-profiles-daemon
 	tree
+	udiskie
 	wob
 	xdg-desktop-portal-hyprland
 	waybar-wttrbar
