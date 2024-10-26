@@ -17,14 +17,12 @@
     "keybind" : "e"
 }
 {
-    "label" : "hibernate",
-    "action" : "swaylock -f && systemctl hibernate",
-    "text" : "Hibernate",
-    "keybind" : "h"
+    "label" : "suspend",
+    "action" : "systemctl suspend",
+    "text" : "Suspend"
 }
 {
     "label" : "lock",
     "action" : "hyprlock",
-    "text" : "Lock",
-    "keybind" : "l"
+    "text" : "Lock"
 }
