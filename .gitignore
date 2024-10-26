@@ -1,2 +1,3 @@
 wallpapers/*
-fontconfig/*/
+fontconfig/conf.d/
+fontconfig/conf.d/*
