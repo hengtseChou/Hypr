@@ -52,6 +52,7 @@ The script will install packages required for this setup and symlink to the corr
 | <kbd>Super</kbd> + <kbd>M</kbd>                                                                                                      | Toggle maximize mode                              |
 | <kbd>Super</kbd> + <kbd>T</kbd>                                                                                                      | Toggle floating window                            |
 | <kbd>Super</kbd> + <kbd>J</kbd>                                                                                                      | Toggle window split                               |
+| <kbd>Super</kbd> + <kbd>P</kbd>                                                                                                      | Toggle pseudotiling                               |
 | <kbd>Super</kbd> + <kbd>→</kbd><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd> <br> <kbd>Super</kbd> + <kbd>LeftClick</kbd>                     | Move window                                       |
 | <kbd>Super</kbd> + <kbd>Shift</kbd> + <kbd>→</kbd><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd> <br> <kbd>Super</kbd> + <kbd>RightClick</kbd> | Resize window                                     |
 | <kbd>Alt</kbd> + <kbd>Tab</kbd>                                                                                                      | Cycle through windows                             |
