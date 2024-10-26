@@ -39,6 +39,7 @@ apps=(
 	swaync
 	waybar
 	wlogout
+	zsh
 )
 
 fonts=(
@@ -68,8 +69,6 @@ if [[ "$skip_theming" =~ ^([nN][oO]?|[yY][eE][sS]?)$ ]]; then
 	paru -S --needed "${theming[@]}"
 	gsettings set org.gnome.desktop.interface gtk-theme 'Colloid-Dark'
 	gsettings set org.gnome.desktop.interface icon-theme 'Colloid-Dark'
-	gsettings set org.gnome.desktop.interface font-name 'Ubuntu 12'
-	gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font 12'
 	gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 	gsettings set org.gnome.desktop.interface cursor-size 24
 	gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
@@ -79,6 +78,7 @@ else
 	echo ":: Skipping theme installation."
 fi
 
+chsh -s $(which zsh)
 echo ":: Install oh-my-zsh..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -100,6 +100,8 @@ symlink $PWD/wlogout --to-config
 symlink $PWD/.zshrc --to-home
 
 fc-cache -f
+gsettings set org.gnome.desktop.interface font-name 'Ubuntu 12'
+gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font 12'
 
 sed -i 's|\$dotfiles = ".*"|$dotfiles = "'"$PWD"'"|' ./hypr/hyprland.conf
 sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/hyprlock.conf
