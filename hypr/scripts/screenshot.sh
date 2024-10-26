@@ -6,7 +6,8 @@
 # |____/ \___|_|  \___|\___|_| |_|___/_| |_|\___/ \__|
 #
 export HYPRSHOT_DIR="$HOME/Pictures/Screenshots"
-NAME="Screenshot from $(date "+%Y-%m-%d %H-%M-%S").png"
+# icon disappeared when passing -f
+# NAME="Screenshot from $(date "+%Y-%m-%d %H-%M-%S").png"
 
 option1="Selected Area"
 option2="Pick Window"
@@ -18,13 +19,13 @@ choice=$(echo -e "$options" | rofi -dmenu -replace -config $HOME/Hypr/rofi/confi
 
 case $choice in
 $option1)
-    hyprshot -m region -f "$NAME"
+    hyprshot -m region
     ;;
 $option2)
-    hyprshot -m window -f "$NAME"
+    hyprshot -m window
     ;;
 $option3)
-    hyprshot -m output -f "$NAME"
+    hyprshot -m output
     ;;
 *)
     notify-send "Screenshot script" "No option chosen. Screenshot script exited."
