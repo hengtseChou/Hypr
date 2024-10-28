@@ -1,59 +1,59 @@
 #!/bin/bash
 if ! command -v paru 2>&1 >/dev/null; then
-	echo ":: Error: paru is not installed. Exiting."
-	exit 1
+  echo ":: Error: paru is not installed. Exiting."
+  exit 1
 fi
 
 utils=(
-	bat
-	brightnessctl
-	cliphist
-	eza
-	fd
-	figlet
-	fzf
-	hypridle
-	imagemagick
-	pamixer
-	polkit-gnome
-	power-profiles-daemon
-	tree
-	udiskie
-	wob
-	xdg-desktop-portal-hyprland
-	waybar-wttrbar
-	zoxide
+  bat
+  brightnessctl
+  cliphist
+  eza
+  fd
+  figlet
+  fzf
+  hypridle
+  imagemagick
+  pamixer
+  polkit-gnome
+  power-profiles-daemon
+  tree
+  udiskie
+  wob
+  xdg-desktop-portal-hyprland
+  waybar-wttrbar
+  zoxide
 )
 
 apps=(
-	alacritty
-	fastfetch
-	fontconfig
-	greetd-tuigreet
-	hyprland
-	hyprlock
-	hyprpaper
-	hyprshot
-	pwvucontrol
-	rofi-wayland
-	starship
-	swaync
-	waybar
-	wlogout
-	zsh
+  alacritty
+  fastfetch
+  fontconfig
+  greetd-tuigreet
+  hyprland
+  hyprlock
+  hyprpaper
+  hyprshot
+  pwvucontrol
+  rofi-wayland
+  starship
+  swaync
+  waybar
+  wlogout
+  zsh
 )
 
 fonts=(
-	noto-fonts-cjk
-	noto-fonts-emoji
-	ttf-jetbrains-mono-nerd
-	ttf-ubuntu-font-family
-	ttf-ubuntu-mono-nerd
+  noto-fonts-cjk
+  noto-fonts-emoji
+  ttf-jetbrains-mono-nerd
+  ttf-ubuntu-font-family
+  ttf-ubuntu-mono-nerd
 )
 
 theming=(
-	colloid-gtk-theme-git
-	colloid-icon-theme-git
+  colloid-gtk-theme-git
+  colloid-icon-theme-git
 )
 
 echo ":: Installing apps..."
@@ -66,17 +66,17 @@ paru -S --needed "${fonts[@]}"
 read -p ":: Skip theming? (y/N): " skip_theming
 skip_theming=${skip_theming:-N}
 if [[ "$skip_theming" =~ ^([nN][oO]?|[yY][eE][sS]?)$ ]]; then
-	echo ":: Installing theme..."
-	paru -S --needed "${theming[@]}"
-	gsettings set org.gnome.desktop.interface gtk-theme 'Colloid-Dark'
-	gsettings set org.gnome.desktop.interface icon-theme 'Colloid-Dark'
-	gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-	gsettings set org.gnome.desktop.interface cursor-size 24
-	gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
-	mkdir -p ~/.config/gtk-4.0/
-	ln -sf /usr/share/themes/Colloid-Grey-Dark/gtk-4.0/{assets,gtk.css} ~/.config/gtk-4.0
+  echo ":: Installing theme..."
+  paru -S --needed "${theming[@]}"
+  gsettings set org.gnome.desktop.interface gtk-theme 'Colloid'
+  gsettings set org.gnome.desktop.interface icon-theme 'Colloid'
+  gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+  gsettings set org.gnome.desktop.interface cursor-size 24
+  gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
+  mkdir -p ~/.config/gtk-4.0/
+  ln -sf /usr/share/themes/Colloid-Grey-Dark/gtk-4.0/{assets,gtk.css} ~/.config/gtk-4.0
 else
-	echo ":: Skipping theme installation."
+  echo ":: Skipping theme installation."
 fi
 
 chsh -s $(which zsh)

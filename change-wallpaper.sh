@@ -1,3 +1,4 @@
+
 #!/bin/bash
 set -e
 
@@ -33,7 +34,7 @@ current_wallpaper="$wallpaper_dir/current_wallpaper.$extension"
 rm "$wallpaper_dir/current_wallpaper."*
 cp -f "$file_path" "$wallpaper_dir/$filename"
 cp -f "$wallpaper_dir/$filename" "$current_wallpaper"
-echo ":: Copied $PWD/$file_path to $wallpaper_dir"
+echo ":: Copied $PWD/$file_path to $wallpaper_dir."
 echo ":: Creating blurred wallpaper using current wallpaper..."
 magick "$current_wallpaper" -resize 75% "$wallpaper_dir/blurred_wallpaper.png"
 magick "$current_wallpaper" -blur 50x30 "$wallpaper_dir/blurred_wallpaper.png"
@@ -44,4 +45,4 @@ output=${wal_tpl//WALLPAPER/$current_wallpaper}
 echo "$output" >$hypr/hyprpaper.conf
 hyprpaper &>/dev/null &
 disown
-echo ":: Done"
+echo ":: Done."
