@@ -108,7 +108,7 @@
     "escape": true,
     "return-type": "json",
     "exec": "$HOME/Hypr/waybar/modules/check-hypridle.sh",
-    "on-click": "$HOME/Hypr/hypr/scripts/switch-hypridle.sh",
+    "on-click": "$HOME/Hypr/hypr/scripts/toggle-hypridle.sh",
     "restart-interval": 1
   },
   "clock": {
