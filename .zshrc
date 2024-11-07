@@ -62,7 +62,6 @@ alias gs="git status"
 alias ga="git add"
 alias gc="git commit -m"
 alias gp="git push"
-alias gcheck="git checkout"
 alias gb="git branch"
 alias gsw="git switch"
 alias gd="git diff"
@@ -93,9 +92,9 @@ alias reload="source $HOME/.zshrc"
 
 function ff() {
   if [[ $XDG_CURRENT_DESKTOP == 'Hyprland' ]]; then
-    fastfetch --config $hypr/fastfetch/config1.jsonc
+    fastfetch --config $hypr/fastfetch/hyprland.jsonc
   elif [[ $XDG_CURRENT_DESKTOP == 'GNOME' ]]; then
-    fastfetch --config $hypr/fastfetch/config2.jsonc
+    fastfetch --config $hypr/fastfetch/gnome.jsonc
   fi
 }
 
