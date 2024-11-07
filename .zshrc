@@ -4,9 +4,9 @@
 #   _ / /\__ \ | | | | | (__
 #  (_)___|___/_| |_|_|  \___|
 
-# -----------------------------------------------------
-# PATH
-# -----------------------------------------------------
+# ---------------------------------------------------------------------------- #
+#                                     PATH                                     #
+# ---------------------------------------------------------------------------- #
 
 export PATH="/usr/lib/ccache/bin/:$PATH"
 export PATH="$HOME/Scripts:$PATH"
@@ -17,46 +17,60 @@ export PATH="$HOME/.go/bin:$PATH"
 export PATH="$HOME/.pyenv/bin:$PATH"
 export PATH="$HOME/.spicetify:$PATH"
 
-# -----------------------------------------------------
-# ZSH
-# -----------------------------------------------------
+# ---------------------------------------------------------------------------- #
+#                                     ZINIT                                    #
+# ---------------------------------------------------------------------------- #
 
-autoload -Uz compinit
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
-  compinit;
-else
-  compinit -C;
-fi;
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
 
-export VISUAL=nano
-setopt no_nomatch
-setopt HIST_IGNORE_DUPS
-setopt INTERACTIVE_COMMENTS
-# navigate words using Ctrl + arrow keys
-# >>> CRTL + right arrow | CRTL + left arrow
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
+# Add in zsh plugins
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
+zinit ice as"command" from"gh-r" \
+  atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+  atpull"%atclone" src"init.zsh"
+zinit light starship/starship
 
-export ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="robbyrussell"
-plugins=(
-  sudo
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  ohmyzsh-full-autoupdate
-)
-source $ZSH/oh-my-zsh.sh
+# Add in snippets
+zinit snippet OMZP::sudo
 
-# -----------------------------------------------------
-# DIRECTORIES
-# -----------------------------------------------------
+# Load completions
+autoload -U compinit && compinit
+zinit cdreplay -q
+
+# History
+HISTSIZE=5000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --icons --group-directories-first $realpath'
+export FZF_CTRL_R_OPTS="--layout=reverse"
+
+# ---------------------------------------------------------------------------- #
+#                                  DIRECTORIES                                 #
+# ---------------------------------------------------------------------------- #
 
 hypr="$HOME/Hypr"
 conf="$HOME/Conf"
 
-# -----------------------------------------------------
-# GIT
-# -----------------------------------------------------
+# ---------------------------------------------------------------------------- #
+#                                      GIT                                     #
+# ---------------------------------------------------------------------------- #
 
 alias gs="git status"
 alias ga="git add"
@@ -67,26 +81,19 @@ alias gsw="git switch"
 alias gd="git diff"
 alias gcl="git clone"
 
-# -----------------------------------------------------
-# APPS
-# -----------------------------------------------------
-
-alias n="nano"
-alias g="gnome-text-editor"
-alias f="nautilus"
-alias c="peaclock"
-
-# -----------------------------------------------------
-# SHORTCUTS
-# -----------------------------------------------------
+# ---------------------------------------------------------------------------- #
+#                                   SHORTCUTS                                  #
+# ---------------------------------------------------------------------------- #
 
 alias e="exit"
+alias g="gnome-text-editor"
 alias ls="eza --icons --group-directories-first"
 alias ll="eza -l --icons --group-directories-first"
 alias lt="eza --tree --level=1 --icons --group-directories-first"
 alias conf="code $conf"
 alias hypr="code $hypr"
 alias wifi="nmtui connect"
+alias clock="peaclock"
 alias zshrc="nano $HOME/.zshrc"
 alias reload="source $HOME/.zshrc"
 
@@ -112,9 +119,9 @@ function log-out() {
   fi
 }
 
-# -----------------------------------------------------
-# PACMAN
-# -----------------------------------------------------
+# ---------------------------------------------------------------------------- #
+#                                    PACMAN                                    #
+# ---------------------------------------------------------------------------- #
 
 alias inst="paru -S"
 alias uninst="paru -Rns"
@@ -124,8 +131,11 @@ function pkglist() {
   local all=false
   while [[ $# -gt 0 ]]; do
     case $1 in
-      -a) all=true; shift ;;
-      *) return 1 ;;
+    -a)
+      all=true
+      shift
+      ;;
+    *) return 1 ;;
     esac
   done
   if $all; then
@@ -140,8 +150,11 @@ function pkgsearch() {
   local aur=false
   while [[ $# -gt 0 ]]; do
     case $1 in
-      -a) aur=true; shift ;;
-      *) return 1 ;;
+    -a)
+      aur=true
+      shift
+      ;;
+    *) return 1 ;;
     esac
   done
   if $aur; then
@@ -156,40 +169,24 @@ function cleanup() {
   paru -Scc
 }
 
-# -----------------------------------------------------
-# PYWAL
-# -----------------------------------------------------
+# ---------------------------------------------------------------------------- #
+#                                COLOR SEQUENCES                               #
+# ---------------------------------------------------------------------------- #
 
 cat $hypr/sequences
 
-# -----------------------------------------------------
-# STARSHIP
-# -----------------------------------------------------
-
-eval "$(starship init zsh)"
-
-# -----------------------------------------------------
-# ZOXIDE
-# -----------------------------------------------------
-
-eval "$(zoxide init zsh)"
-
-# -----------------------------------------------------
-# PYENV
-# -----------------------------------------------------
+# ---------------------------------------------------------------------------- #
+#                                     PYENV                                    #
+# ---------------------------------------------------------------------------- #
 
 if command -v pyenv 2>&1 >/dev/null; then
   eval "$(pyenv init -)"
   export PY3_10="$HOME/.pyenv/versions/3.10.14/bin/python3.10"
 fi
 
-# -----------------------------------------------------
-# FZF
-# -----------------------------------------------------
+# ---------------------------------------------------------------------------- #
+#                              SHELL INTEGRATIONS                              #
+# ---------------------------------------------------------------------------- #
 
-FZF_ALT_C_COMMAND=""
-FZF_CTRL_T_COMMAND=""
-source <(fzf --zsh)
-export FZF_CTRL_R_OPTS="--preview 'echo {}' --layout=reverse"
-alias fzcd="fd --type directory --exclude venv --exclude virtualenv --exclude .git | fzf --preview 'tree -C {}' --layout=reverse --bind 'enter:execute(cd {})'"
-alias fzfile="fd -H --type file | fzf --preview '[ -d {} ] && tree -C {} || bat --color=always --style=numbers {}' --layout=reverse --bind 'enter:execute(nano {})'"
+eval "$(fzf --zsh)"
+eval "$(zoxide init zsh)"
