@@ -82,7 +82,7 @@
     "format": "{}°",
     "tooltip": true,
     "interval": 300,
-    "exec": "wttrbar --hide-conditions",
+    "exec": "wttrbar --hide-conditions --location Hsinchu",
     "return-type": "json"
   },
   "cpu": {
