@@ -21,7 +21,7 @@ utils=(
   udiskie
   wob
   xdg-desktop-portal-hyprland
-  waybar-wttrbar
+  wttrbar
   zoxide
 )
 
