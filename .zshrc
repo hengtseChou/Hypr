@@ -61,6 +61,10 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --icons --group-directories-first $realpath'
 export FZF_CTRL_R_OPTS="--layout=reverse"
 
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+bindkey "^[[3~" delete-char
+
 # ---------------------------------------------------------------------------- #
 #                                  DIRECTORIES                                 #
 # ---------------------------------------------------------------------------- #
