@@ -66,7 +66,7 @@ The script will install packages required for this setup and symlink to the corr
 | <kbd>Super</kbd> + <kbd>C</kbd>                                                                                                      | Launch clipboard manager                          |
 | <kbd>Super</kbd> + <kbd>L</kbd>                                                                                                      | Launch lock screen                                |
 | <kbd>Super</kbd> + <kbd>N</kbd>                                                                                                      | Toggle notifications center                       |
-| <kbd>Super</kbd> + <kbd>W</kbd>                                                                                                      | Toggle Waybar                                     |
+| <kbd>Super</kbd> + <kbd>Ctrl</kbd> + <kbd>W</kbd>                                                                                                      | Toggle Waybar                                     |
 | <kbd>Super</kbd> + <kbd>Ctrl</kbd> + <kbd>L</kbd>                                                                                    | Toggle idle-inhibitor                             |
 | <kbd>Super</kbd> + <kbd>Ctrl</kbd> + <kbd>P</kbd>                                                                                    | Select power-profile                              |
 | <kbd>Super</kbd> + <kbd>Ctrl</kbd> + <kbd>U</kbd>                                                                                    | Launch updater                                    |
