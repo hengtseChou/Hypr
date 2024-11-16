@@ -52,8 +52,12 @@ fonts=(
 )
 
 theming=(
-  colloid-gtk-theme-git
-  colloid-icon-theme-git
+  adwaita-cursors
+  gnome-themes-extra
+  gtk3
+  gtk4
+  gtk-engine-murrine
+  sassc
 )
 
 clear && echo -e ":: Installing apps...\n"
@@ -66,18 +70,24 @@ paru -S --needed "${fonts[@]}"
 clear
 read -p ":: Skip theming? (y/N): " skip_theming
 skip_theming=${skip_theming:-N}
-if [[ "$skip_theming" =~ ^([nN][oO]?|[yY][eE][sS]?)$ ]]; then
+if [[ "$skip_theming" =~ ^([yY])$ ]]; then
+  echo ":: Skipping theme installation."
+else
   echo ":: Installing theme..."
   paru -S --needed "${theming[@]}"
+  git clone https://github.com/vinceliuice/Colloid-gtk-theme.git
+  cd Colloid-gtk-theme
+  ./install.sh
+  cd ..
+  git clone https://github.com/vinceliuice/Colloid-icon-theme.git
+  cd Colloid-icon-theme
+  ./install.sh
+  cd ..
   gsettings set org.gnome.desktop.interface gtk-theme 'Colloid'
   gsettings set org.gnome.desktop.interface icon-theme 'Colloid'
   gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
   gsettings set org.gnome.desktop.interface cursor-size 24
   gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
-  mkdir -p ~/.config/gtk-4.0/
-  ln -sf /usr/share/themes/Colloid-Grey-Dark/gtk-4.0/{assets,gtk.css} ~/.config/gtk-4.0
-else
-  echo ":: Skipping theme installation."
 fi
 
 sudo systemctl enable greetd.service
