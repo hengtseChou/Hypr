@@ -56,13 +56,14 @@ theming=(
   colloid-icon-theme-git
 )
 
-echo ":: Installing apps..."
+clear && echo -e ":: Installing apps...\n"
 paru -S --needed "${apps[@]}"
-echo ":: Installing utilies..."
+clear && echo -e ":: Installing utilies...\n"
 paru -S --needed "${utils[@]}"
-echo ":: Installing fonts..."
+clear && echo -e ":: Installing fonts...\n"
 paru -S --needed "${fonts[@]}"
 
+clear
 read -p ":: Skip theming? (y/N): " skip_theming
 skip_theming=${skip_theming:-N}
 if [[ "$skip_theming" =~ ^([nN][oO]?|[yY][eE][sS]?)$ ]]; then
@@ -79,26 +80,14 @@ else
   echo ":: Skipping theme installation."
 fi
 
-chsh -s $(which zsh)
-echo ":: Install oh-my-zsh..."
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/Pilaton/OhMyZsh-full-autoupdate.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/ohmyzsh-full-autoupdate
-
 sudo systemctl enable greetd.service
 sudo cp ./greetd/config.toml /etc/greetd/config.toml
 
 source ./symlink.sh
 symlink $PWD/alacritty --to-config
-symlink $PWD/fontconfig --to-config
 symlink $PWD/hypr --to-config
-symlink $PWD/rofi --to-config
 symlink $PWD/starship/starship.toml --to-config
 symlink $PWD/swaync --to-config
-symlink $PWD/waybar --to-config
-symlink $PWD/wlogout --to-config
-symlink $PWD/.zshrc --to-home
 
 fc-cache -f
 gsettings set org.gnome.desktop.interface font-name 'Ubuntu 12'
