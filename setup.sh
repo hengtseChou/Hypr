@@ -60,18 +60,31 @@ theming=(
   sassc
 )
 
-clear && echo -e ":: Installing apps...\n"
+clear
+echo ":: Installing apps..."
 paru -S --needed "${apps[@]}"
-clear && echo -e ":: Installing utilies...\n"
+echo ":: Done. Proceeding to the next step..."
+time sleep 3
+
+clear
+echo ":: Installing utilies..."
 paru -S --needed "${utils[@]}"
-clear && echo -e ":: Installing fonts...\n"
+echo ":: Done. Proceeding to the next step..."
+time sleep 3
+
+clear
+echo ":: Installing fonts..."
 paru -S --needed "${fonts[@]}"
+echo ":: Done. Proceeding to the next step..."
+time sleep 3
 
 clear
 read -p ":: Skip theming? (y/N): " skip_theming
 skip_theming=${skip_theming:-N}
 if [[ "$skip_theming" =~ ^([yY])$ ]]; then
   echo ":: Skipping theme installation."
+  echo ":: Proceeding to the next step..."
+  time sleep 3
 else
   echo ":: Installing theme..."
   paru -S --needed "${theming[@]}"
@@ -88,6 +101,8 @@ else
   gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
   gsettings set org.gnome.desktop.interface cursor-size 24
   gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
+  echo ":: Done. Proceeding to the next step..."
+  time sleep 3
 fi
 
 clear
@@ -121,4 +136,7 @@ sed -i 's|\~/Hypr|'"$PWD"'|' ./rofi/config-screenshot.rasi
 sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./waybar/config
 sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./waybar/modules.jsonc
 sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./wlogout/wlogout.sh
-sed -i 's|dotfiles="[^"]*"|dotfiles="'"$PWD"'"|' ./.zshrc
+sed -i 's|dotfiles="[^"]*"|dotfiles="'"$PWD"'"|' ./zsh/.zshrc
+
+echo ":: Hypr configuration completed. "
+echo ":: Please reboot your system."
