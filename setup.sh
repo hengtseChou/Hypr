@@ -111,13 +111,12 @@ chsh -s /bin/zsh
 sudo systemctl enable greetd.service
 sudo cp ./greetd/config.toml /etc/greetd/config.toml
 
-source ./symlink.sh
-symlink $PWD/alacritty --to-config
-symlink $PWD/hypr --to-config
-symlink $PWD/starship/starship.toml --to-config
-symlink $PWD/swaync --to-config
-symlink $PWD/zsh --to-config
-symlink $PWD/zsh/.zshrc --to-home
+./symlink.sh $PWD/alacritty --to-config
+./symlink.sh $PWD/hypr --to-config
+./symlink.sh $PWD/starship/starship.toml --to-config
+./symlink.sh $PWD/swaync --to-config
+./symlink.sh $PWD/zsh --to-config
+./symlink.sh $PWD/zsh/.zshrc --to-home
 
 fc-cache -f
 gsettings set org.gnome.desktop.interface font-name 'Ubuntu 12'
