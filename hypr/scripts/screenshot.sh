@@ -5,29 +5,15 @@
 #  ___) | (__| | |  __/  __/ | | \__ \ | | | (_) | |_
 # |____/ \___|_|  \___|\___|_| |_|___/_| |_|\___/ \__|
 #
+mode="$1"
+
 export HYPRSHOT_DIR="$HOME/Pictures/Screenshots"
-# icon disappeared when passing -f
-# NAME="Screenshot from $(date "+%Y-%m-%d %H-%M-%S").png"
+NAME="Screenshot from $(date "+%Y-%m-%d %H-%M-%S").png"
 
-option1="Selected Area"
-option2="Pick Window"
-option3="Pick Monitor"
-
-options="$option1\n$option2\n$option3"
-
-choice=$(echo -e "$options" | rofi -dmenu -replace -config $HOME/Hypr/rofi/config-screenshot.rasi -i -no-show-icons -l 3 -width 30 -p "Take Screenshot")
-
-case $choice in
-$option1)
-    hyprshot -m region
-    ;;
-$option2)
-    hyprshot -m window
-    ;;
-$option3)
-    hyprshot -m output
-    ;;
-*)
-    notify-send "Screenshot script" "No option chosen. Screenshot script exited."
-    ;;
-esac
+if [ "$mode" == "region" ]; then
+    hyprshot -m region -f "$NAME"
+elif [ "$mode" == "window" ]; then
+    hyprshot -m window -f "$NAME"
+elif [ "$mode" == "output" ]; then
+    hyprshot -m output -f "$NAME"
+fi

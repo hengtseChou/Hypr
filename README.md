@@ -7,6 +7,7 @@
 - **Screenshot Util •** [Hyprshot](https://github.com/Gustash/Hyprshot)
 - **Clipboard Manager •** [cliphist](https://github.com/sentriz/cliphist)
 - **Wallpaper Engine •** [hyprpaper](https://github.com/hyprwm/hyprpaper)
+- **Idle Daemon •** [hypridle](https://github.com/hyprwm/hypridle)
 - **Lock Screen •** [hyprlock](https://github.com/hyprwm/hyprlock)
 - **Logout Menu •** [wlogout](https://github.com/ArtsyMacaw/wlogout)
 - **Fonts •** [Ubuntu](https://archlinux.org/packages/extra/any/ttf-ubuntu-font-family/) + [Noto Sans/Serif CJK TC](https://archlinux.org/packages/extra/any/noto-fonts-cjk/)
@@ -61,13 +62,15 @@ The script will install packages required for this setup and symlink to the corr
 | <kbd>Super</kbd> + <kbd>R</kbd>                                                                                                      | Move Workspaces to focused monitor                |
 | <kbd>Super</kbd> + <kbd>[0-9]</kbd>                                                                                                  | Move to workspace 1 to 10 (on focused monitor)    |
 | <kbd>Super</kbd> + <kbd>End</kbd>                                                                                                    | Switch to empty workspace (on focused monitor)    |
-| <kbd>Print</kbd> <br><kbd>Super</kbd> + <kbd>Print</kbd>                                                                             | Take a screenshot (area, window, monitor)         |
+| <kbd>Print</kbd>                                                                                                                     | Screenshot (region)                               |
+| <kbd>Ctrl</kbd> + <kbd>Print</kbd>                                                                                                   | Screenshot (window)                               |
+| <kbd>Shift</kbd> + <kbd>Print</kbd>                                                                                                  | Screenshot (monitor)                              |
 | <kbd>Super</kbd> + <kbd>Backspace</kbd>                                                                                              | Launch logout screen                              |
 | <kbd>Super</kbd> + <kbd>C</kbd>                                                                                                      | Launch clipboard manager                          |
 | <kbd>Super</kbd> + <kbd>L</kbd>                                                                                                      | Launch lock screen                                |
 | <kbd>Super</kbd> + <kbd>N</kbd>                                                                                                      | Toggle notifications center                       |
-| <kbd>Super</kbd> + <kbd>Ctrl</kbd> + <kbd>W</kbd>                                                                                                      | Toggle Waybar                                     |
-| <kbd>Super</kbd> + <kbd>Ctrl</kbd> + <kbd>L</kbd>                                                                                    | Toggle idle-inhibitor                             |
+| <kbd>Super</kbd> + <kbd>Ctrl</kbd> + <kbd>W</kbd>                                                                                    | Toggle Waybar                                     |
+| <kbd>Super</kbd> + <kbd>Ctrl</kbd> + <kbd>L</kbd>                                                                                    | Toggle Hypridle                                   |
 | <kbd>Super</kbd> + <kbd>Ctrl</kbd> + <kbd>P</kbd>                                                                                    | Select power-profile                              |
 | <kbd>Super</kbd> + <kbd>Ctrl</kbd> + <kbd>U</kbd>                                                                                    | Launch updater                                    |
 | <kbd>XF86MonBrightnessUp</kbd>                                                                                                       | Increase brightness by 5%                         |
