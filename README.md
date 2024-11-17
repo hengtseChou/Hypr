@@ -32,7 +32,7 @@ This setup is based on [ML4W Dotfiles](https://github.com/mylinuxforwork/dotfile
 ```
 git clone https://github.com/hengtseChou/Hypr.git
 cd Hypr
-./install.sh
+./setup.sh
 ```
 
 The script will install packages required for this setup and symlink to the corresponding directories. Some apps as seen in alias from `.zshrc` or keybindings from `hypr/hyprland.conf` may consider optional and therefore not be included.
