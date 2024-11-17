@@ -4,27 +4,6 @@ if ! command -v paru 2>&1 >/dev/null; then
   exit 1
 fi
 
-utils=(
-  bat
-  brightnessctl
-  cliphist
-  eza
-  fd
-  figlet
-  fzf
-  hypridle
-  imagemagick
-  pamixer
-  polkit-gnome
-  power-profiles-daemon
-  tree
-  udiskie
-  wob
-  xdg-desktop-portal-hyprland
-  wttrbar
-  zoxide
-)
-
 apps=(
   alacritty
   fastfetch
@@ -33,14 +12,33 @@ apps=(
   hyprland
   hyprlock
   hyprpaper
-  hyprshot
-  pwvucontrol
   rofi-wayland
-  starship
   swaync
   waybar
   wlogout
   zsh
+)
+
+utils=(
+  brightnessctl
+  cliphist
+  eza
+  figlet
+  fzf
+  hypridle
+  hyprshot
+  imagemagick
+  networkmanager
+  pamixer
+  polkit-gnome
+  power-profiles-daemon
+  pwvucontrol
+  starship
+  udiskie
+  wob
+  xdg-desktop-portal-hyprland
+  wttrbar
+  zoxide
 )
 
 fonts=(
@@ -63,19 +61,19 @@ theming=(
 clear
 echo ":: Installing apps..."
 paru -S --needed "${apps[@]}"
-echo ":: Done. Proceeding to the next step..."
+echo -e "\n:: Done. Proceeding to the next step..."
 time sleep 3
 
 clear
 echo ":: Installing utilies..."
 paru -S --needed "${utils[@]}"
-echo ":: Done. Proceeding to the next step..."
+echo -e "\n:: Done. Proceeding to the next step..."
 time sleep 3
 
 clear
 echo ":: Installing fonts..."
 paru -S --needed "${fonts[@]}"
-echo ":: Done. Proceeding to the next step..."
+echo -e "\n:: Done. Proceeding to the next step..."
 time sleep 3
 
 clear
@@ -101,7 +99,7 @@ else
   gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
   gsettings set org.gnome.desktop.interface cursor-size 24
   gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
-  echo ":: Done. Proceeding to the next step..."
+  echo -e "\n:: Done. Proceeding to the next step..."
   time sleep 3
 fi
 
@@ -110,6 +108,7 @@ chsh -s /bin/zsh
 
 sudo systemctl enable greetd.service
 sudo cp ./greetd/config.toml /etc/greetd/config.toml
+echo ":: Copied $PWD/greetd/config.toml to /etc/greetd/config.toml"
 
 ./symlink.sh $PWD/alacritty --to-config
 ./symlink.sh $PWD/hypr --to-config
@@ -118,24 +117,25 @@ sudo cp ./greetd/config.toml /etc/greetd/config.toml
 ./symlink.sh $PWD/zsh --to-config
 ./symlink.sh $PWD/zsh/.zshrc --to-home
 
+echo ":: Setting up fontconfig..."
 fc-cache -f
 gsettings set org.gnome.desktop.interface font-name 'Ubuntu 12'
 gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font 12'
 
-sed -i 's|\$dotfiles = ".*"|$dotfiles = "'"$PWD"'"|' ./hypr/hyprland.conf
-sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/hyprlock.conf
-sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/hyprpaper.conf
-sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/scripts/power-profiles.sh
-sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/scripts/screenshot.sh
-sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/scripts/toggle-waybar.sh
-sed -i 's|\~/Hypr|'"$PWD"'|' ./rofi/config.rasi
-sed -i 's|\~/Hypr|'"$PWD"'|' ./rofi/config-cliphist.rasi
-sed -i 's|\~/Hypr|'"$PWD"'|' ./rofi/config-power.rasi
-sed -i 's|\~/Hypr|'"$PWD"'|' ./rofi/config-screenshot.rasi
-sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./waybar/config
-sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./waybar/modules.jsonc
-sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./wlogout/wlogout.sh
-sed -i 's|dotfiles="[^"]*"|dotfiles="'"$PWD"'"|' ./zsh/.zshrc
+# sed -i 's|\$dotfiles = ".*"|$dotfiles = "'"$PWD"'"|' ./hypr/hyprland.conf
+# sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/hyprlock.conf
+# sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/hyprpaper.conf
+# sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/scripts/power-profiles.sh
+# sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/scripts/screenshot.sh
+# sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./hypr/scripts/toggle-waybar.sh
+# sed -i 's|\~/Hypr|'"$PWD"'|' ./rofi/config.rasi
+# sed -i 's|\~/Hypr|'"$PWD"'|' ./rofi/config-cliphist.rasi
+# sed -i 's|\~/Hypr|'"$PWD"'|' ./rofi/config-power.rasi
+# sed -i 's|\~/Hypr|'"$PWD"'|' ./rofi/config-screenshot.rasi
+# sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./waybar/config
+# sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./waybar/modules.jsonc
+# sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./wlogout/wlogout.sh
+# sed -i 's|dotfiles="[^"]*"|dotfiles="'"$PWD"'"|' ./zsh/.zshrc
 
-echo ":: Hypr configuration completed. "
+echo -e "\n:: Hypr configuration completed. "
 echo ":: Please reboot your system."
