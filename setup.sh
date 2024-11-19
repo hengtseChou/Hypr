@@ -103,7 +103,7 @@ echo ":: Setting up default shell..."
 chsh -s /bin/zsh
 echo ""
 
-echo ":: Linking configure files..."
+echo ":: Setting up configuration files..."
 echo "" && sleep 0.5
 sudo systemctl enable greetd.service
 sudo cp ./greetd/config.toml /etc/greetd/config.toml
@@ -143,4 +143,4 @@ gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Ner
 # sed -i 's|\$HOME/Hypr|'"$PWD"'|' ./wlogout/wlogout.sh
 # sed -i 's|dotfiles="[^"]*"|dotfiles="'"$PWD"'"|' ./zsh/.zshrc
 
-echo -e "\n:: Hypr configuration completed."
+echo -e "\n:: Hypr configuration completed.\n"
