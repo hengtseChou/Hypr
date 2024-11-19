@@ -62,17 +62,14 @@ echo -e "\n----- Hyprland configuration script -----\n"
 echo ":: Installing apps..."
 paru -S --needed "${apps[@]}"
 echo -e ":: Done. Proceeding to the next step...\n"
-sleep 3
 
 echo ":: Installing utilies..."
 paru -S --needed "${utils[@]}"
 echo -e ":: Done. Proceeding to the next step...\n"
-sleep 3
 
 echo ":: Installing fonts..."
 paru -S --needed "${fonts[@]}"
 echo -e ":: Done. Proceeding to the next step...\n"
-sleep 3
 
 read -p ":: Skip theming? (y/N): " skip_theming
 skip_theming=${skip_theming:-N}
@@ -97,11 +94,16 @@ else
   gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
   echo -e ":: Done. Proceeding to the next step...\n"
 fi
-sleep 3
 
-echo ":: Setting up default shell..."
-chsh -s /bin/zsh
-echo ""
+if [[ "$SHELL" != "/bin/zsh" ]]; then
+  echo ":: Setting up default shell..."
+  chsh -s /bin/zsh
+  echo -e ":: Done. Proceeding to the next step...\n"
+else
+  echo ":: Setting up default shell: Already set to zsh"
+  echo -e ":: Proceeding to the next step...\n"
+  sleep 3
+fi
 
 echo ":: Setting up configuration files..."
 echo "" && sleep 0.5
@@ -118,9 +120,9 @@ echo "" && sleep 0.5
 echo "" && sleep 0.5
 ./symlink.sh $PWD/swaync --to-config
 echo "" && sleep 0.5
-# ./symlink.sh $PWD/zsh --to-config
+./symlink.sh $PWD/zsh --to-config
 echo "" && sleep 0.5
-# ./symlink.sh $PWD/zsh/.zshrc --to-home
+./symlink.sh $PWD/zsh/.zshrc --to-home
 echo "" && sleep 0.5
 
 echo ":: Setting up fontconfig..."
