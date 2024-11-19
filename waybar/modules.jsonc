@@ -35,6 +35,10 @@
     "on-click": "alacritty --class floating -e $HOME/Hypr/waybar/modules/install-updates.sh",
     "tooltip": false
   },
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "󰃟  {percent}%"
+  },
   "pulseaudio": {
     "format": "{icon} ",
     "format-bluetooth": "{icon} ",
@@ -95,7 +99,7 @@
   },
   "power-profiles-daemon": {
     "format": "{icon}",
-    "tooltip-format": "Power profile: {profile}",
+    "tooltip-format": "{profile}",
     "tooltip": true,
     "format-icons": {
       "performance": "󰓅",
