@@ -40,24 +40,16 @@
     "format": "󰃟  {percent}%"
   },
   "pulseaudio": {
-    "format": "{icon} ",
-    "format-bluetooth": "{icon} ",
+    "format": "{icon}",
+    "format-bluetooth": "{icon}",
+    "tooltip-format": "{desc} - {volume} %",
     "format-muted": " ",
+    "on-click": "pwvucontrol",
     "format-icons": {
-      "alsa_output.pci-0000_00_1f.3.analog-stereo": "",
-      "alsa_output.pci-0000_00_1f.3.analog-stereo-muted": "",
-      "headphone": "",
-      "hands-free": "",
-      "headset": "",
-      "phone": "",
-      "phone-muted": "",
-      "portable": "",
-      "car": "",
-      "default": ["", ""]
+      "headphone": " ",
+      "default": [" ", " "]
     },
-    "scroll-step": 1,
-    "ignored-sinks": ["Easy Effects Sink"],
-    "on-click": "pwvucontrol"
+    "reverse-scrolling": true
   },
   "battery": {
     "states": {
