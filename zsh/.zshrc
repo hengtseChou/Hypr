@@ -113,51 +113,71 @@ log-out() {
 }
 
 change-wallpaper() {
-  set -e
-  # Check if no arguments are provided
-  if [ $# -eq 0 ]; then
-    echo "Usage: $0 <file_path>"
+
+  wallpaper_dir="$HOME/Pictures/Wallpapers"
+  if [ ! -d $wallpaper_dir ]; then
+    echo "Error: ~/Pictures/Wallpapers does not exist. Place images into this directory."
+    exit 1
+  fi
+  if ! command -v magick 2>&1 >/dev/null; then
+    echo ":: Error: imagemagick is not installed."
+    exit 1
+  fi
+  if ! command -v gum 2>&1 >/dev/null; then
+    echo ":: Error: gum is not installed."
     exit 1
   fi
 
-  file_path="$1"
-  filename=$(basename -- "$file_path")
-  extension="${filename##*.}"
-
-  # Check if the file exists
-  if [ ! -e "$file_path" ]; then
-    echo "Error: file '$file_path' does not exist"
+  images=$(fd . --base-directory $wallpaper_dir -e jpg -e jpeg -e png -e gif -e bmp -e tiff -e tif -e webp -e ico -e jif -e psd -e dds -e heif -e heic)
+  if [ -z "$images" ]; then
+    echo "Error: No image file found in ~/Pictures/Wallpapers."
     exit 1
   fi
+  image="$wallpaper_dir/$(echo "$images" | gum choose --header 'Choose from ~/Pictures/Wallpapers: ')"
+  image_name=$(basename -- "$image")
+  extension="${image_name##*.}"
 
-  # Check if the file format is supported
-  supported_formats=("jpeg" "png" "gif" "pnm" "tga" "tiff" "webp" "bmp" "farbfeld" "jpg")
+  old=$(fd current $HOME/Hypr/wallpapers --no-ignore)
+  new="$HOME/Hypr/wallpapers/current_wallpaper.$extension"
+  blurred="$HOME/Hypr/wallpapers/blurred_wallpaper.png"
 
-  if [[ ! " ${supported_formats[@]} " =~ " $extension " ]]; then
-    echo "Error: file format '$extension' is not supported"
-    exit 1
+  dimensions=$(magick identify -format "%w %h" $image)
+  width=$(echo $dimensions | cut -d' ' -f1)
+  height=$(echo $dimensions | cut -d' ' -f2)
+
+  # Calculate the target canvas size for 16:10
+  target_width=$((height * 16 / 10))
+  target_height=$((width * 10 / 16))
+
+  # Determine whether to extend width or height to fit 16:10
+  if ((target_width >= width)); then
+    # Extend width
+    width=$target_width
+  else
+    # Extend height
+    height=$target_height
   fi
 
-  hypr="$HOME/Hypr/hypr"
-  wallpaper_dir="$HOME/Hypr/wallpapers"
-  current_wallpaper="$wallpaper_dir/current_wallpaper.$extension"
+  mode=$(echo "fill\nfit\ncenter" | gum choose --header "Select wallpaper mode: ")
 
-  # remove old wallpaper
-  rm "$wallpaper_dir/current_wallpaper."*
-  cp -f "$file_path" "$wallpaper_dir/$filename"
-  cp -f "$wallpaper_dir/$filename" "$current_wallpaper"
-  echo ":: Copied $PWD/$file_path to $wallpaper_dir."
-  echo ":: Creating blurred wallpaper using current wallpaper..."
-  magick "$current_wallpaper" -resize 75% "$wallpaper_dir/blurred_wallpaper.png"
-  magick "$current_wallpaper" -blur 50x30 "$wallpaper_dir/blurred_wallpaper.png"
-  echo ":: Setting up hyprpaper config..."
+  rm -f $old
+  echo "Selected: $(basename $image)"
+  echo "Mode: $mode"
+  echo "Converting..."
+  if [[ $mode == 'fill' ]]; then
+    cp -f $image $new
+  elif [[ $mode == 'fit' ]]; then
+    magick $image -resize "${width}x${height}" -gravity center -background black -extent "${width}x${height}" $new
+  elif [[ $mode == 'center' ]]; then
+    magick $image -gravity center -background black -extent "${width}x${height}" $new
+  fi
+  magick $new -blur 50x30 $blurred
   killall hyprpaper
-  wal_tpl=$(cat $hypr/hyprpaper.tpl)
-  output=${wal_tpl//WALLPAPER/$current_wallpaper}
-  echo "$output" >$hypr/hyprpaper.conf
-  hyprpaper &>/dev/null &
-  disown
-  echo ":: Done."
+  wal_tpl=$(cat $HOME/Hypr/hypr/hyprpaper.tpl)
+  output=${wal_tpl//WALLPAPER/$new}
+  echo "$output" >$HOME/Hypr/hypr/hyprpaper.conf
+  (hyprpaper &>/dev/null &)
+  echo "OK!"
 }
 
 # ---------------------------------------------------------------------------- #

@@ -23,8 +23,10 @@ utils=(
   brightnessctl
   cliphist
   eza
+  fd
   figlet
   fzf
+  gum
   hypridle
   hyprshot
   imagemagick
@@ -35,7 +37,6 @@ utils=(
   pwvucontrol
   starship
   udiskie
-  wob
   xdg-desktop-portal-hyprland
   wttrbar
   zoxide
